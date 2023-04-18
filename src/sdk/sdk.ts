@@ -65,7 +65,7 @@ export class Klarna {
   public _securityClient: AxiosInstance;
   public _serverURL: string;
   private _language = "typescript";
-  private _sdkVersion = "2.0.0";
+  private _sdkVersion = "2.0.1";
   private _genVersion = "2.18.1";
   private _globals: any;
 
