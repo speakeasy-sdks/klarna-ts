@@ -17,13 +17,12 @@ Read more on **[Create a new order](https://docs.klarna.com/klarna-payments/inte
 
 ```typescript
 import { Klarna } from "@speakeasy-sdks/klarna-orders";
-import { CreateOrderRequest, CreateOrderResponse } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/operations";
+import { CreateOrderResponse } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/operations";
 import {
   AuthorizedPaymentMethodTypeEnum,
   CustomerOrganizationEntityTypeEnum,
   SubscriptionIntervalEnum,
 } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/shared";
-import { AxiosError } from "axios";
 
 const sdk = new Klarna({
   security: {
@@ -31,7 +30,7 @@ const sdk = new Klarna({
   },
 });
 
-const req: CreateOrderRequest = {
+sdk.orders.create({
   authorizationToken: "ab",
   createOrderRequestInput: {
     autoCapture: false,
@@ -124,10 +123,8 @@ const req: CreateOrderRequest = {
       title: "Mr.",
     },
   },
-};
-
-sdk.orders.create(req).then((res: CreateOrderResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: CreateOrderResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });

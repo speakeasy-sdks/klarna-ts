@@ -17,8 +17,7 @@ Read more on **[Cancel an existing authorization](https://docs.klarna.com/klarna
 
 ```typescript
 import { Klarna } from "@speakeasy-sdks/klarna-orders";
-import { CancelAuthorizationRequest, CancelAuthorizationResponse } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/operations";
-import { AxiosError } from "axios";
+import { CancelAuthorizationResponse } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/operations";
 
 const sdk = new Klarna({
   security: {
@@ -26,12 +25,10 @@ const sdk = new Klarna({
   },
 });
 
-const req: CancelAuthorizationRequest = {
+sdk.authorizations.cancel({
   authorizationToken: "temporibus",
-};
-
-sdk.authorizations.cancel(req).then((res: CancelAuthorizationResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: CancelAuthorizationResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });

@@ -17,13 +17,12 @@ Read more on **[Generate a consumer token](https://docs.klarna.com/klarna-paymen
 
 ```typescript
 import { Klarna } from "@speakeasy-sdks/klarna-orders";
-import { PurchaseTokenRequest, PurchaseTokenResponse } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/operations";
+import { PurchaseTokenResponse } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/operations";
 import {
   AuthorizedPaymentMethodTypeEnum,
   CustomerOrganizationEntityTypeEnum,
   CustomerTokenCreationRequestIntendedUseEnum,
 } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/shared";
-import { AxiosError } from "axios";
 
 const sdk = new Klarna({
   security: {
@@ -31,7 +30,7 @@ const sdk = new Klarna({
   },
 });
 
-const req: PurchaseTokenRequest = {
+sdk.tokens.purchase({
   authorizationToken: "mollitia",
   customerTokenCreationRequest: {
     billingAddress: {
@@ -66,10 +65,8 @@ const req: PurchaseTokenRequest = {
     purchaseCountry: "GB",
     purchaseCurrency: "GBP",
   },
-};
-
-sdk.tokens.purchase(req).then((res: PurchaseTokenResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: PurchaseTokenResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });

@@ -19,14 +19,13 @@ Read more on **[Create a new payment session](https://docs.klarna.com/klarna-pay
 
 ```typescript
 import { Klarna } from "@speakeasy-sdks/klarna-orders";
-import { CreateCreditSessionResponse, SessionCreateInput } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/operations";
+import { CreateCreditSessionResponse } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/operations";
 import {
   CustomerOrganizationEntityTypeEnum,
   SessionCreateAcquiringChannelEnum,
   SessionCreateIntentEnum,
   SubscriptionIntervalEnum,
 } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/shared";
-import { AxiosError } from "axios";
 
 const sdk = new Klarna({
   security: {
@@ -34,7 +33,7 @@ const sdk = new Klarna({
   },
 });
 
-const req: shared.SessionCreateInput = {
+sdk.sessions.create({
   acquiringChannel: SessionCreateAcquiringChannelEnum.Ecommerce,
   attachment: {
     body: "{"customer_account_info":[{"unique_account_identifier":"test@gmail.com","account_registration_date":"2017-02-13T10:49:20Z","account_last_modified":"2019-03-13T11:45:27Z"}]}",
@@ -139,10 +138,8 @@ const req: shared.SessionCreateInput = {
     streetAddress2: "Floor 22 / Flat 2",
     title: "Mr.",
   },
-};
-
-sdk.sessions.create(req).then((res: CreateCreditSessionResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: CreateCreditSessionResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -157,7 +154,7 @@ Read more on **[Read an existing payment session](https://docs.klarna.com/klarna
 
 ```typescript
 import { Klarna } from "@speakeasy-sdks/klarna-orders";
-import { ReadCreditSessionRequest, ReadCreditSessionResponse } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/operations";
+import { ReadCreditSessionResponse } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/operations";
 import {
   CustomerReadOrganizationEntityTypeEnum,
   SessionReadAcquiringChannelEnum,
@@ -165,7 +162,6 @@ import {
   SessionReadStatusEnum,
   SubscriptionIntervalEnum,
 } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/shared";
-import { AxiosError } from "axios";
 
 const sdk = new Klarna({
   security: {
@@ -173,12 +169,10 @@ const sdk = new Klarna({
   },
 });
 
-const req: ReadCreditSessionRequest = {
+sdk.sessions.read({
   sessionId: "excepturi",
-};
-
-sdk.sessions.read(req).then((res: ReadCreditSessionResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ReadCreditSessionResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -193,14 +187,13 @@ Read more on **[Update an existing payment session](https://docs.klarna.com/klar
 
 ```typescript
 import { Klarna } from "@speakeasy-sdks/klarna-orders";
-import { UpdateCreditSessionRequest, UpdateCreditSessionResponse } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/operations";
+import { UpdateCreditSessionResponse } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/operations";
 import {
   CustomerOrganizationEntityTypeEnum,
   SessionAcquiringChannelEnum,
   SessionIntentEnum,
   SubscriptionIntervalEnum,
 } from "@speakeasy-sdks/klarna-orders/dist/sdk/models/shared";
-import { AxiosError } from "axios";
 
 const sdk = new Klarna({
   security: {
@@ -208,7 +201,7 @@ const sdk = new Klarna({
   },
 });
 
-const req: UpdateCreditSessionRequest = {
+sdk.sessions.update({
   sessionInput: {
     acquiringChannel: SessionAcquiringChannelEnum.Ecommerce,
     attachment: {
@@ -398,10 +391,8 @@ const req: UpdateCreditSessionRequest = {
     },
   },
   sessionId: "architecto",
-};
-
-sdk.sessions.update(req).then((res: UpdateCreditSessionResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: UpdateCreditSessionResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
