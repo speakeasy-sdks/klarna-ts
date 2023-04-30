@@ -2,13 +2,13 @@ configVersion: 1.0.0
 management:
   docChecksum: 005a0e955a1f5a07ed61636530698d3a
   docVersion: 1.0.0
-  speakeasyVersion: 1.26.3
-  generationVersion: 2.23.3
+  speakeasyVersion: 1.26.4
+  generationVersion: 2.23.4
 generation:
   telemetryEnabled: false
   sdkClassName: Klarna
   singleTagPerOp: false
 typescript:
-  version: 2.5.1
+  version: 2.5.2
   author: Speakeasy
   packageName: '@speakeasy-sdks/klarna-orders'
