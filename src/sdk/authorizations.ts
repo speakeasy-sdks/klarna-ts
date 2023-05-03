@@ -40,7 +40,7 @@ export class Authorizations {
    * Use this API call to cancel/release an authorization. If the `authorization_token` received during a Klarna Payments won’t be used to place an order immediately you could release the authorization.
    * Read more on **[Cancel an existing authorization](https://docs.klarna.com/klarna-payments/other-actions/cancel-an-authorization/)**.
    */
-  cancel(
+  async cancel(
     req: operations.CancelAuthorizationRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.CancelAuthorizationResponse> {
@@ -57,29 +57,30 @@ export class Authorizations {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "delete",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.CancelAuthorizationResponse =
-        new operations.CancelAuthorizationResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case [204, 403, 404].includes(httpRes?.status):
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.CancelAuthorizationResponse =
+      new operations.CancelAuthorizationResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case [204, 403, 404].includes(httpRes?.status):
+        break;
+    }
+
+    return res;
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@speakeasy-sdks/klarna-orders",
-  "version": "2.0.1",
+  "version": "2.6.0",
   "author": "Speakeasy",
   "scripts": {
     "prepare": "tsc --build"
@@ -22,5 +22,10 @@
   "files": [
     "dist",
     "README.md"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/speakeasy-sdks/klarna-ts.git",
+    "directory": "."
+  }
 }

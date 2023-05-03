@@ -52,4 +52,9 @@ src/sdk/models/shared/errorv2.ts
 src/sdk/models/shared/customertokencreationrequest.ts
 src/sdk/models/shared/security.ts
 src/sdk/models/shared/index.ts
+docs/klarna/README.md
+docs/authorizations/README.md
+docs/orders/README.md
+docs/sessions/README.md
+docs/tokens/README.md
 USAGE.md
