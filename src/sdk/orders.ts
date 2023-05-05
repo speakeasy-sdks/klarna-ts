@@ -41,7 +41,7 @@ export class Orders {
    * Use this API call to create a new order. Placing an order towards Klarna means that the Klarna Payments session will be closed and that an order will be created in Klarna's system.<br/>When you have received the `authorization_token` for a successful authorization you can place the order. Among the other order details in this request, you include a URL to the confirmation page for the customer.<br/>When the Order has been successfully placed at Klarna, you need to handle it either through the Merchant Portal or using [Klarna’s Order Management API](#order-management-api).
    * Read more on **[Create a new order](https://docs.klarna.com/klarna-payments/integrate-with-klarna-payments/step-3-create-an-order/)**.
    */
-  async create(
+  async read(
     req: operations.CreateOrderRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.CreateOrderResponse> {

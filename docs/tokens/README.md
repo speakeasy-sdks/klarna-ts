@@ -31,7 +31,7 @@ const sdk = new Klarna({
 });
 
 sdk.tokens.purchase({
-  authorizationToken: "mollitia",
+  authorizationToken: "occaecati",
   customerTokenCreationRequest: {
     billingAddress: {
       attention: "Attn",
@@ -40,7 +40,7 @@ sdk.tokens.purchase({
       email: "test.sam@test.com",
       familyName: "Andersson",
       givenName: "Adam",
-      organizationName: "dolorem",
+      organizationName: "numquam",
       phone: "+44795465131",
       postalCode: "W1G 0PW",
       region: "OH",
@@ -51,15 +51,15 @@ sdk.tokens.purchase({
     customer: {
       dateOfBirth: "1978-12-31",
       gender: "male",
-      lastFourSsn: "culpa",
-      nationalIdentificationNumber: "consequuntur",
-      organizationEntityType: CustomerOrganizationEntityTypeEnum.Other,
-      organizationRegistrationId: "mollitia",
+      lastFourSsn: "commodi",
+      nationalIdentificationNumber: "quam",
+      organizationEntityType: CustomerOrganizationEntityTypeEnum.GeneralPartnership,
+      organizationRegistrationId: "velit",
       title: "Mr.",
       type: "organization",
-      vatId: "occaecati",
+      vatId: "error",
     },
-    description: "numquam",
+    description: "quia",
     intendedUse: CustomerTokenCreationRequestIntendedUseEnum.Subscription,
     locale: "en-GB",
     purchaseCountry: "GB",

@@ -35,13 +35,72 @@ export class Sessions {
   }
 
   /**
+   * Read an existing payment session
+   *
+   * @remarks
+   * Use this API call to read a Klarna Payments session. You can read the Klarna Payments session at any time after it has been created, to get information about it. This will return all data that has been collected during the session.
+   * Read more on **[Read an existing payment session](https://docs.klarna.com/klarna-payments/other-actions/check-the-details-of-a-payment-session/)**.
+   */
+  async read(
+    req: operations.ReadCreditSessionRequest,
+    config?: AxiosRequestConfig
+  ): Promise<operations.ReadCreditSessionResponse> {
+    if (!(req instanceof utils.SpeakeasyBase)) {
+      req = new operations.ReadCreditSessionRequest(req);
+    }
+
+    const baseURL: string = this._serverURL;
+    const url: string = utils.generateURL(
+      baseURL,
+      "/payments/v1/sessions/{session_id}",
+      req
+    );
+
+    const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
+      url: url,
+      method: "get",
+      ...config,
+    });
+
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
+
+    const res: operations.ReadCreditSessionResponse =
+      new operations.ReadCreditSessionResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.sessionRead = utils.objectToClass(
+            httpRes?.data,
+            shared.SessionRead
+          );
+        }
+        break;
+      case [403, 404].includes(httpRes?.status):
+        break;
+    }
+
+    return res;
+  }
+
+  /**
    * Create a new payment session
    *
    * @remarks
    * Use this API call to create a Klarna Payments session.<br/>When a session is created you will receive the available `payment_method_categories` for the session, a `session_id` and a `client_token`. The `session_id` can be used to read or update the session using the REST API. The `client_token` should be passed to the browser.
    * Read more on **[Create a new payment session](https://docs.klarna.com/klarna-payments/integrate-with-klarna-payments/step-1-initiate-a-payment/)**.
    */
-  async create(
+  async read(
     req: shared.SessionCreateInput,
     config?: AxiosRequestConfig
   ): Promise<operations.CreateCreditSessionResponse> {
@@ -103,65 +162,6 @@ export class Sessions {
         }
         break;
       case [400, 403].includes(httpRes?.status):
-        break;
-    }
-
-    return res;
-  }
-
-  /**
-   * Read an existing payment session
-   *
-   * @remarks
-   * Use this API call to read a Klarna Payments session. You can read the Klarna Payments session at any time after it has been created, to get information about it. This will return all data that has been collected during the session.
-   * Read more on **[Read an existing payment session](https://docs.klarna.com/klarna-payments/other-actions/check-the-details-of-a-payment-session/)**.
-   */
-  async read(
-    req: operations.ReadCreditSessionRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.ReadCreditSessionResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.ReadCreditSessionRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/payments/v1/sessions/{session_id}",
-      req
-    );
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url,
-      method: "get",
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.ReadCreditSessionResponse =
-      new operations.ReadCreditSessionResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.sessionRead = utils.objectToClass(
-            httpRes?.data,
-            shared.SessionRead
-          );
-        }
-        break;
-      case [403, 404].includes(httpRes?.status):
         break;
     }
 

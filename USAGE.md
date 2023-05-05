@@ -14,7 +14,7 @@ const sdk = new Klarna({
   },
 });
 
-sdk.orders.create({
+sdk.orders.read({
   authorizationToken: "corrupti",
   createOrderRequestInput: {
     autoCapture: false,
