@@ -119,3 +119,11 @@ Based on:
 - Speakeasy CLI 1.29.2 (2.26.2) https://github.com/speakeasy-api/speakeasy
 ### Releases
 - [NPM v2.7.2] https://www.npmjs.com/package/@speakeasy-sdks/klarna-orders/v/2.7.2 - .
+
+## 2023-05-11 00:25:09
+### Changes
+Based on:
+- OpenAPI Doc 1.0.0 ./openapi/openapi.yaml
+- Speakeasy CLI 1.30.0 (2.26.3) https://github.com/speakeasy-api/speakeasy
+### Releases
+- [NPM v2.7.3] https://www.npmjs.com/package/@speakeasy-sdks/klarna-orders/v/2.7.3 - .
