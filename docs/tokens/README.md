@@ -26,7 +26,7 @@ import {
 
 const sdk = new Klarna({
   security: {
-    apiKeyAuth: "Bearer YOUR_BEARER_TOKEN_HERE",
+    apiKeyAuth: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 

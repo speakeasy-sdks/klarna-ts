@@ -1,6 +1,6 @@
 {
   "name": "@speakeasy-sdks/klarna-orders",
-  "version": "2.7.4",
+  "version": "2.8.0",
   "author": "Speakeasy",
   "scripts": {
     "prepare": "tsc --build"
